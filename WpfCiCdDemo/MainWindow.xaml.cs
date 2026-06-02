@@ -15,7 +15,7 @@ namespace WpfCiCdDemo
         public MainWindow()
         {
             //sjjsjjsjdd
-            //ddddd
+            //dddddd
             InitializeComponent();
         }
         public int Topla(int a, int b)
