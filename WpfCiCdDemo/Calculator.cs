@@ -4,7 +4,7 @@ namespace WpfCiCdDemo
     {
         public int Topla(int a, int b)
         {
-            return a * b;
+            return a + b;
         }
     }
 }
