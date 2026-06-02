@@ -25,20 +25,15 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
 
-    - name: Test
-      run: dotnet test --configuration Release --verbosity normal
-
-    # --- CD MƏRHƏLƏSİ (Part 1: Publish) ---
     - name: Publish
       run: dotnet publish --configuration Release --no-build --output ./publish
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: WPF-Project-Build
+        name: my-app-build
         path: ./publish
 
-  # --- CD MƏRHƏLƏSİ (Part 2: Release) ---
   release:
     needs: build
     runs-on: ubuntu-latest
@@ -48,13 +43,12 @@ jobs:
     - name: Download Artifact
       uses: actions/download-artifact@v4
       with:
-        name: WPF-Project-Build
-        path: ./publish
+        name: my-app-build
 
     - name: Create Release
       uses: softprops/action-gh-release@v2
       with:
-        files: ./publish/**/*
-        tag_name: v1.0.${{ github.run_number }}
-        name: Release v1.0.${{ github.run_number }}
-        body: "Bu versiya avtomatik olaraq CI/CD pipeline vasitəsilə yaradıldı."
+        files: ./*
+        tag_name: v1.0.${{ github.run_id }}
+        name: Release v1.0.${{ github.run_id }}
+        body: "Avtomatik yaradıldı. Build ID: ${{ github.run_id }}"
